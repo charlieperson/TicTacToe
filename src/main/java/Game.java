@@ -8,53 +8,30 @@ import static java.lang.Integer.parseInt;
 
 public class Game {
 
-    private final PrintStream out;
+    private PrintStream out;
     private BufferedReader in;
-    private ArrayList<String> board;
+    private Board board;
 
-    public Game(PrintStream out, BufferedReader in) {
+    public Game(PrintStream out, BufferedReader in, Board board) {
         this.out = out;
         this.in = in;
-        this.board = new ArrayList<>(Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9"));
+        this.board = board;
     }
 
     public void start() {
-        drawBoard();
+        board.draw();
     }
 
-    public void move() {
-        try {
-            String move = in.readLine();
-            board.set((parseInt(move)-1), "X");
-            drawBoard();
-
-        } catch(IOException e) {
-            out.print(e.getMessage());
-        }
-    }
-
-
-    private void drawBoard() {
-        String board = "";
-        board += drawRow(1);
-        board += drawRow(2);
-        board += drawRow(3);
-        out.println(board);
-    }
-
-    private String drawRow(int row) {
-        String rowString = "";
-        int startingIndex = ((row-1)*3);
-        int endingIndex = row*3;
-        for(int i=startingIndex; i<endingIndex; i++) {
-            rowString += board.get(i);
-            boolean lastNumberInRow = (i+1) % 3 == 0;
-            if(!lastNumberInRow) rowString += "|";
-        }
-        boolean lastRow = row==3;
-        if(!lastRow) rowString += "\n-----\n";
-        return rowString;
-    }
-
+//    public void move() {
+//        out.println("\nMake your move!");
+//        try {
+//            String move = in.readLine();
+//            board.set((parseInt(move)-1), "X");
+//            drawBoard();
+//
+//        } catch(IOException e) {
+//            out.print(e.getMessage());
+//        }
+//    }
 
 }
