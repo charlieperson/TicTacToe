@@ -1,19 +1,17 @@
 import java.io.PrintStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Board {
     private PrintStream out;
     private ArrayList<String> currentPositions;
 
-    public Board(PrintStream out) {
+    public Board(PrintStream out, ArrayList<String> positions) {
         this.out = out;
-        this.currentPositions = new ArrayList<>(Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9"));
+        this.currentPositions = positions;
     }
 
-    public void move(int square) {
-        currentPositions.set((square-1), "X");
-        draw();
+    public void move(int square, String xOrO) {
+        currentPositions.set((square-1), xOrO);
     }
 
     public void draw() {

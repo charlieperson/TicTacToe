@@ -1,8 +1,6 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 import static java.lang.Integer.parseInt;
 
@@ -11,6 +9,7 @@ public class Game {
     private PrintStream out;
     private BufferedReader in;
     private Board board;
+    private boolean playerOneTurn = true;
 
     public Game(PrintStream out, BufferedReader in, Board board) {
         this.out = out;
@@ -19,19 +18,30 @@ public class Game {
     }
 
     public void start() {
-        board.draw();
+        handleUserInput();
     }
 
-//    public void move() {
-//        out.println("\nMake your move!");
-//        try {
-//            String move = in.readLine();
-//            board.set((parseInt(move)-1), "X");
-//            drawBoard();
-//
-//        } catch(IOException e) {
-//            out.print(e.getMessage());
-//        }
-//    }
+    private void handleUserInput() {
+        board.draw();
+        out.println("\nMake your move!");
+        try {
+            String input = in.readLine();
+            processInput(input);
+        } catch(IOException e) {
+            out.print(e.getMessage());
+        }
+    }
+
+    private void processInput(String input) {
+        if(input.equals("quit")) return;
+        board.move(parseInt(input), xOrO());
+        playerOneTurn = !playerOneTurn;
+        handleUserInput();
+    }
+
+    private String xOrO() {
+        if(playerOneTurn) return "X";
+        return "O";
+    }
 
 }

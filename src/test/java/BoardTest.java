@@ -1,15 +1,29 @@
+import org.junit.Before;
 import org.junit.Test;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 public class BoardTest {
 
+    private ArrayList<String> positions;
+    private PrintStream out;
+
+
+    @Before
+    public void setUp() {
+        positions = new ArrayList<>(Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9"));
+        out = mock(PrintStream.class);
+    }
+
     @Test
     public void shouldDrawInitialBoard() {
-        PrintStream out = mock(PrintStream.class);
-        Board board = new Board(out);
+        Board board = new Board(out, positions);
         board.draw();
         verify(out).println(
                 "1|2|3\n" +
@@ -20,29 +34,16 @@ public class BoardTest {
     }
 
     @Test
-    public void shouldRedrawBoardAppropriatelyWhenPlayerMovesToSquareThree() throws IOException {
-        PrintStream out = mock(PrintStream.class);
-        Board board = new Board(out);
-        board.move(3);
-        verify(out).println(
-                "1|2|X\n" +
-                "-----\n" +
-                "4|5|6\n" +
-                "-----\n" +
-                "7|8|9");
+    public void shouldRedrawBoardAppropriatelyWhenPlayerOneMovesToSquareThree() throws IOException {
+        Board board = new Board(out, positions);
+        board.move(3, "X");
+        assertEquals(positions.get(2), "X");
     }
 
     @Test
     public void shouldRedrawBoardAppropriatelyWhenPlayerMovesToSquareFour() throws IOException {
-        PrintStream out = mock(PrintStream.class);
-        Board board = new Board(out);
-        board.move(4);
-        verify(out).println(
-                "1|2|3\n" +
-                "-----\n" +
-                "X|5|6\n" +
-                "-----\n" +
-                "7|8|9");
+        Board board = new Board(out, positions);
+        board.move(4, "O");
+        assertEquals(positions.get(3), "O");
     }
-
 }
