@@ -39,7 +39,16 @@ public class Game {
             board.move(position, xOrO());
             playerOneTurn = !playerOneTurn;
         }
+        if(board.isFull()) {
+            handleDraw();
+            return;
+        }
         handleUserInput();
+    }
+
+    private void handleDraw() {
+        out.println("Game is a draw");
+        board.draw();
     }
 
     private String xOrO() {

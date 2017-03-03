@@ -38,4 +38,12 @@ public class GameTest {
         verify(board).move(3, "X");
         verify(board).move(2, "O");
     }
+
+    @Test
+    public void shouldAlternateTurnsUntilBoardIsFull() throws IOException{
+        when(in.readLine()).thenReturn("3", "2", "quit");
+        when(board.isFull()).thenReturn(true);
+        game.start();
+        verify(out).println("Game is a draw");
+    }
 }

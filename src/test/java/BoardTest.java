@@ -38,14 +38,14 @@ public class BoardTest {
     public void shouldRedrawBoardAppropriatelyWhenPlayerOneMovesToSquareThree() throws IOException {
         Board board = new Board(out, positions);
         board.move(3, "X");
-        assertEquals(positions.get(2), "X");
+        assertEquals("X", positions.get(2));
     }
 
     @Test
     public void shouldRedrawBoardAppropriatelyWhenPlayerMovesToSquareFour() throws IOException {
         Board board = new Board(out, positions);
         board.move(4, "O");
-        assertEquals(positions.get(3), "O");
+        assertEquals("O", positions.get(3));
     }
 
     @Test
@@ -54,5 +54,13 @@ public class BoardTest {
         board.move(4, "O");
         board.positionHasNotBeenTaken(4);
         verify(out).println("Location already taken");
+    }
+
+    @Test
+    public void shouldKnowWhenBoardIsFull() {
+        positions = new ArrayList<>(Arrays.asList("X", "O", "X", "X", "O", "O", "O", "X", "X"));
+        Board board = new Board(out, positions);
+        assertEquals(true, board.isFull());
+
     }
 }

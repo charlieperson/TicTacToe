@@ -46,4 +46,14 @@ public class Board {
         }
         return true;
     }
+
+    public boolean isFull() {
+        boolean validator = true;
+        for(String position : currentPositions) {
+            if(!position.equals("X") && !position.equals("O")) {
+                validator = false;
+            }
+        }
+        return validator;
+    }
 }
