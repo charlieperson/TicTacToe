@@ -34,8 +34,11 @@ public class Game {
 
     private void processInput(String input) {
         if(input.equals("quit")) return;
-        board.move(parseInt(input), xOrO());
-        playerOneTurn = !playerOneTurn;
+        int position = parseInt(input);
+        if(board.positionHasNotBeenTaken(position)) {
+            board.move(position, xOrO());
+            playerOneTurn = !playerOneTurn;
+        }
         handleUserInput();
     }
 

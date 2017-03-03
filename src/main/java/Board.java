@@ -11,7 +11,8 @@ public class Board {
     }
 
     public void move(int square, String xOrO) {
-        currentPositions.set((square-1), xOrO);
+        int desiredIndex = (square - 1);
+        currentPositions.set((desiredIndex), xOrO);
     }
 
     public void draw() {
@@ -34,5 +35,15 @@ public class Board {
         boolean lastRow = row==3;
         if(!lastRow) rowString += "\n-----\n";
         return rowString;
+    }
+
+    public boolean positionHasNotBeenTaken(int square) {
+        int desiredIndex = (square - 1);
+        if(currentPositions.get(desiredIndex).equals("X") ||
+            currentPositions.get(desiredIndex).equals("O")) {
+            out.println("Location already taken");
+            return false;
+        }
+        return true;
     }
 }

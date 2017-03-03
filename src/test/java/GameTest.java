@@ -32,6 +32,8 @@ public class GameTest {
     @Test
     public void shouldPromptSecondUserToMakeMoveAfterFirstPlayerMoves() throws IOException {
         when(in.readLine()).thenReturn("3", "2", "quit");
+        when(board.positionHasNotBeenTaken(3)).thenReturn(true);
+        when(board.positionHasNotBeenTaken(2)).thenReturn(true);
         game.start();
         verify(board).move(3, "X");
         verify(board).move(2, "O");

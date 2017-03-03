@@ -8,6 +8,7 @@ import java.util.Arrays;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 public class BoardTest {
 
@@ -45,5 +46,13 @@ public class BoardTest {
         Board board = new Board(out, positions);
         board.move(4, "O");
         assertEquals(positions.get(3), "O");
+    }
+
+    @Test
+    public void shouldNotLetAPlayerMoveIntoASpotThatHasAlreadyBeenTaken() throws IOException {
+        Board board = new Board(out, positions);
+        board.move(4, "O");
+        board.positionHasNotBeenTaken(4);
+        verify(out).println("Location already taken");
     }
 }
